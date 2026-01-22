@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Electro Salah</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f2027;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+    input, textarea, button {
+      width: 90%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background: #00c6ff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h2>🔐 دخول الإدارة</h2>
+
+<div id="login">
+  <input type="password" id="password" placeholder="كلمة المرور">
+  <button onclick="login()">دخول</button>
+</div>
+
+<div id="admin" class="hidden">
+  <h2>لوحة التحكم</h2>
+  <input type="text" id="name" placeholder="اسم المنتج">
+  <textarea id="desc" placeholder="وصف المنتج"></textarea>
+  <input type="file" id="image">
+  <button onclick="save()">حفظ التغييرات</button>
+</div>
+
+<script>
+  const PASSWORD = "1234"; // ← غيرها لاحقًا
+
+  function login() {
+    if (document.getElementById("password").value === PASSWORD) {
+      document.getElementById("login").style.display = "none";
+      document.getElementById("admin").classList.remove("hidden");
+    } else {
+      alert("كلمة المرور خاطئة");
+    }
+  }
+
+  function save() {
+    const name = document.getElementById("name").value;
+    const desc = document.getElementById("desc").value;
+    const imageInput = document.getElementById("image");
+
+    if (name) localStorage.setItem("productName", name);
+    if (desc) localStorage.setItem("productDesc", desc);
+
+    if (imageInput.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        localStorage.setItem("productImage", reader.result);
+        alert("تم الحفظ بنجاح");
+      };
+      reader.readAsDataURL(imageInput.files[0]);
+    } else {
+      alert("تم الحفظ");
+    }
+  }
+</script>
+
+</body>
+</html>
