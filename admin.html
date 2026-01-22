@@ -1,139 +1,219 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin - Electro Salah</title>
-  <style>
-    * {
-      font-family: 'Segoe UI', Tahoma, sans-serif;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<title>Electro Salah – Admin</title>
 
-    body {
-      margin: 0;
-      height: 100vh;
-      background: linear-gradient(135deg, #dbeafe, #eef2ff, #f0f9ff);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+<style>
+:root {
+  --blue:#4f6cff;
+  --purple:#7a6cff;
+  --bg:linear-gradient(135deg,#eef2ff,#fdfbff,#e0f2ff);
+}
 
-    /* ===== Login Card ===== */
-    .login-card, .admin-card {
-      background: white;
-      padding: 30px;
-      width: 360px;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      animation: fadeUp 0.8s ease;
-    }
+*{box-sizing:border-box;font-family:Segoe UI,Tahoma}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
 
-    input, textarea {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border-radius: 12px;
-      border: 1px solid #ddd;
-      font-size: 15px;
-    }
+/* ===== LOGIN ===== */
+#login{
+  background:white;
+  padding:35px;
+  border-radius:20px;
+  width:340px;
+  text-align:center;
+  box-shadow:0 30px 80px rgba(0,0,0,.12);
+  animation:fadeUp .8s ease;
+}
 
-    textarea {
-      resize: none;
-      height: 90px;
-    }
+#login h2{margin-bottom:10px}
+#login input{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #ddd;
+  margin:15px 0;
+  font-size:16px;
+}
+#login button{
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
 
-    button {
-      width: 100%;
-      padding: 14px;
-      border: none;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+/* ===== DASHBOARD ===== */
+#dashboard{
+  display:none;
+  width:95%;
+  max-width:1100px;
+}
 
-    button:hover {
-      opacity: 0.9;
-    }
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px;
+}
 
-    .hidden {
-      display: none;
-    }
+.card{
+  background:white;
+  border-radius:22px;
+  padding:20px;
+  min-height:260px;
+  box-shadow:0 20px 60px rgba(0,0,0,.1);
+  transition:.4s;
+  position:relative;
+  cursor:pointer;
+}
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
+.card:hover{
+  transform:translateY(-10px) scale(1.03);
+}
+
+.card h3{margin:0 0 10px}
+
+.preview img{
+  width:100%;
+  border-radius:16px;
+  margin-top:10px;
+}
+
+.plus{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:80px;
+  color:#bbb;
+}
+
+/* ===== FORM ===== */
+form input,form textarea{
+  width:100%;
+  margin:8px 0;
+  padding:10px;
+  border-radius:12px;
+  border:1px solid #ddd;
+}
+form button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  color:white;
+  cursor:pointer;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1}
+}
+
+/* ===== SVG DECOR ===== */
+.svg{
+  position:absolute;
+  opacity:.12;
+}
+.svg.left{left:20px;bottom:40px}
+.svg.right{right:20px;top:40px}
+</style>
 </head>
+
 <body>
 
-  <!-- 🔐 Login -->
-  <div class="login-card" id="loginBox">
-    <h2>🔐 دخول الأدمن</h2>
-    <input type="password" id="password" placeholder="أدخل كلمة المرور">
-    <button onclick="login()">دخول</button>
+<!-- رسومات -->
+<svg class="svg left" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.5">
+<path d="M2 12h4l2-3 4 6 2-4h6"/>
+</svg>
+
+<svg class="svg right" width="180" height="180" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1.5">
+<rect x="2" y="3" width="20" height="14" rx="2"/>
+<path d="M8 21h8"/>
+</svg>
+
+<!-- LOGIN -->
+<div id="login">
+  <h2>Electro Salah</h2>
+  <p>الدخول إلى لوحة الإدارة</p>
+  <input type="password" id="pass" placeholder="كلمة المرور">
+  <button onclick="login()">دخول</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <div class="cards">
+
+    <!-- المنتج المحفوظ -->
+    <div class="card" id="savedCard">
+      <h3>📦 المنتج المحفوظ</h3>
+      <div class="preview" id="preview"></div>
+    </div>
+
+    <!-- إضافة / تعديل -->
+    <div class="card">
+      <h3>✏️ إدخال منتج</h3>
+      <form onsubmit="saveProduct(event)">
+        <input id="name" placeholder="اسم المنتج">
+        <textarea id="desc" placeholder="وصف المنتج"></textarea>
+        <input type="file" id="image">
+        <button>حفظ المنتج</button>
+      </form>
+    </div>
+
+    <!-- إضافة -->
+    <div class="card plus">+</div>
+
   </div>
+</div>
 
-  <!-- ⚙️ Admin Panel -->
-  <div class="admin-card hidden" id="adminBox">
-    <h2>⚙️ لوحة التحكم</h2>
+<script>
+const PASSWORD="0000";
 
-    <input type="text" id="productName" placeholder="اسم المنتج">
+function login(){
+  if(document.getElementById("pass").value===PASSWORD){
+    login.style.display="none";
+    dashboard.style.display="block";
+    loadProduct();
+  }else alert("كلمة المرور غير صحيحة");
+}
 
-    <textarea id="productDesc" placeholder="وصف المنتج"></textarea>
+function saveProduct(e){
+  e.preventDefault();
+  localStorage.setItem("pname",name.value);
+  localStorage.setItem("pdesc",desc.value);
+  const file=image.files[0];
+  if(file){
+    const r=new FileReader();
+    r.onload=()=>{localStorage.setItem("pimg",r.result);loadProduct();}
+    r.readAsDataURL(file);
+  }
+}
 
-    <input type="file" id="productImage" accept="image/*">
+function loadProduct(){
+  if(!localStorage.pname)return;
+  preview.innerHTML=`
+    <strong>${localStorage.pname}</strong>
+    <p>${localStorage.pdesc||""}</p>
+    ${localStorage.pimg?`<img src="${localStorage.pimg}">`:""}
+  `;
+}
+</script>
 
-    <button onclick="saveProduct()">💾 حفظ المنتج</button>
-  </div>
+</body>
+</html>
 
-  <script>
-    const ADMIN_PASSWORD = "0000";
-
-    function login() {
-      const input = document.getElementById("password").value;
-
-      if (input === ADMIN_PASSWORD) {
-        document.getElementById("loginBox").classList.add("hidden");
-        document.getElementById("adminBox").classList.remove("hidden");
-      } else {
-        alert("❌ كلمة المرور غير صحيحة");
-      }
-    }
-
-    function saveProduct() {
-      const name = document.getElementById("productName").value;
-      const desc = document.getElementById("productDesc").value;
-      const imageInput = document.getElementById("productImage");
-
-      localStorage.setItem("productName", name);
-      localStorage.setItem("productDesc", desc);
-
-      if (imageInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function () {
-          localStorage.setItem("productImage", reader.result);
-          alert("✅ تم حفظ المنتج بنجاح");
-        };
-        reader.readAsDataURL(imageInput.files[0]);
-      } else {
-        alert("⚠️ اختر صورة للمنتج");
-      }
-    }
-  </script>
 
 </body>
 </html>
