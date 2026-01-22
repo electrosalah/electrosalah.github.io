@@ -1,136 +1,155 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<title>Admin Premium</title>
-<style>
-:root{
-  --light:#f6f8fc;
-  --dark:#0f172a;
-  --primary:#4f46e5;
-}
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-body{
-  margin:0;min-height:100vh;
-  background:linear-gradient(135deg,#eef2ff,#f8fafc);
-  display:flex;align-items:center;justify-content:center;
-}
-.hidden{display:none}
-/* Login */
-#login{
-  background:white;
-  padding:40px;
-  border-radius:20px;
-  box-shadow:0 40px 80px rgba(0,0,0,.15);
-  text-align:center;
-  animation:fadeUp 1s ease;
-}
-#code{
-  width:160px;
-  text-align:center;
-  font-size:32px;
-  letter-spacing:12px;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #ddd;
-}
-button{
-  margin-top:20px;
-  padding:14px 28px;
-  border:none;
-  border-radius:14px;
-  background:var(--primary);
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-/* Dashboard */
-#dashboard{
-  width:90%;max-width:1100px;
-  animation:fadeIn 1s ease;
-}
-.top{
-  display:flex;justify-content:space-between;align-items:center;margin-bottom:30px
-}
-.menu{cursor:pointer;color:var(--dark);font-weight:600}
-.cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:30px
-}
-.card{
-  background:white;border-radius:24px;
-  padding:24px;min-height:260px;
-  box-shadow:0 30px 60px rgba(0,0,0,.12);
-  position:relative;transition:.4s
-}
-.card:hover{transform:translateY(-8px)}
-.number{
-  position:absolute;top:-14px;right:-14px;
-  background:var(--primary);color:white;
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:bold
-}
-.preview img{width:100%;border-radius:16px}
-form input,form textarea{
-  width:100%;margin-bottom:12px;padding:12px;border-radius:12px;border:1px solid #ddd
-}
-.plus{
-  font-size:72px;color:var(--primary);
-  display:flex;align-items:center;justify-content:center;height:100%
-}
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-</style>
+  <meta charset="UTF-8">
+  <title>Admin – Electro Salah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .login-wrapper {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      padding: 40px 35px;
+      border-radius: 24px;
+      width: 360px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+      text-align: center;
+      animation: enter 1.2s ease;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: #111827;
+    }
+
+    p {
+      margin: 0 0 28px;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      font-size: 26px;
+      text-align: center;
+      letter-spacing: 14px;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      outline: none;
+      transition: all 0.4s ease;
+      background: white;
+    }
+
+    input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 12px 30px rgba(99,102,241,0.25);
+    }
+
+    button {
+      margin-top: 28px;
+      width: 100%;
+      padding: 15px;
+      border-radius: 16px;
+      border: none;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #6366f1, #4338ca);
+      color: white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(67,56,202,0.35);
+    }
+
+    .welcome {
+      display: none;
+      font-size: 20px;
+      color: #111827;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div id="login">
-  <h2>دخول الأدمين</h2>
-  <input id="code" maxlength="4" placeholder="0000" />
-  <br />
-  <button onclick="login()">دخول</button>
-</div>
+  <div class="login-wrapper" id="loginBox">
+    <h1>لوحة التحكم</h1>
+    <p>أدخل الرمز السري للدخول إلى حسابك إن شاء الله</p>
 
-<div id="dashboard" class="hidden">
-  <div class="top">
-    <h2>السلام عليكم يا صاحب المتجر</h2>
-    <div class="menu">قائمة المنتجات</div>
+    <input
+      type="password"
+      id="codeInput"
+      maxlength="4"
+      placeholder="••••"
+      autocomplete="off"
+    >
+
+    <button onclick="checkCode()">دخول</button>
   </div>
 
-  <div class="cards">
-    <div class="card" id="card1">
-      <div class="number">1</div>
-      <div class="preview">آخر منتج سيظهر هنا</div>
-    </div>
-
-    <div class="card" id="card2">
-      <div class="number">2</div>
-      <form onsubmit="saveProduct(event)">
-        <input placeholder="اسم المنتج" required />
-        <textarea placeholder="وصف المنتج"></textarea>
-        <input type="file" accept="image/*" />
-        <button>حفظ المنتج</button>
-      </form>
-    </div>
-
-    <div class="card">
-      <div class="number">3</div>
-      <div class="plus">+</div>
-    </div>
+  <div class="welcome" id="welcomeBox">
+    السلام عليكم يا صاحب المتجر
   </div>
-</div>
 
-<script>
-function login(){
-  if(document.getElementById('code').value==='0000'){
-    document.getElementById('login').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
-  }
-}
-function saveProduct(e){
-  e.preventDefault();
-  document.querySelector('#card1 .preview').innerText='تم إضافة منتج جديد';
-}
-</script>
+  <script>
+    function checkCode() {
+      const code = document.getElementById("codeInput").value;
+
+      if (code === "0000") {
+        document.getElementById("loginBox").style.display = "none";
+        const welcome = document.getElementById("welcomeBox");
+        welcome.style.display = "block";
+
+        setTimeout(() => {
+          // هنا لاحقًا ننتقل إلى لوحة المنتجات
+          // window.location.href = "dashboard.html";
+        }, 2000);
+      } else {
+        alert("الرمز غير صحيح");
+      }
+    }
+  </script>
+
 </body>
 </html>
