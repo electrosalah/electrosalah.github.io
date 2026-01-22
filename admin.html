@@ -1,153 +1,136 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Admin – Electro Salah</title>
-
+<meta charset="UTF-8" />
+<title>Admin Premium</title>
 <style>
-*{
-  box-sizing:border-box;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+:root{
+  --light:#f6f8fc;
+  --dark:#0f172a;
+  --primary:#4f46e5;
 }
-
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
 body{
-  margin:0;
-  height:100vh;
-  background: linear-gradient(135deg,#eef3ff,#f9fbff);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
+  margin:0;min-height:100vh;
+  background:linear-gradient(135deg,#eef2ff,#f8fafc);
+  display:flex;align-items:center;justify-content:center;
 }
-
-/* كرت الدخول */
-.card{
+.hidden{display:none}
+/* Login */
+#login{
   background:white;
-  width:360px;
-  border-radius:22px;
-  padding:30px;
-  box-shadow:0 25px 60px rgba(0,0,0,.12);
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 40px 80px rgba(0,0,0,.15);
+  text-align:center;
   animation:fadeUp 1s ease;
 }
-
-/* العنوان */
-h2{
+#code{
+  width:160px;
   text-align:center;
-  margin-bottom:25px;
-  font-weight:600;
-}
-
-/* مربعات كلمة المرور */
-.pin{
-  display:flex;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:25px;
-}
-
-.pin input{
-  width:55px;
-  height:65px;
-  font-size:26px;
-  text-align:center;
-  border-radius:14px;
-  border:1px solid #dbe3ff;
-  background:#f5f8ff;
-  outline:none;
-  transition:.3s;
-}
-
-.pin input:focus{
-  border-color:#4f6bff;
-  background:#fff;
-}
-
-/* زر */
-button{
-  width:100%;
-  padding:14px;
-  border:none;
-  border-radius:14px;
-  font-size:16px;
-  background:linear-gradient(135deg,#4f6bff,#6a7dff);
-  color:white;
-  cursor:pointer;
-  transition:.3s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-}
-
-/* لوحة التحكم */
-#panel{
-  display:none;
-}
-
-textarea,input[type=text]{
-  width:100%;
+  font-size:32px;
+  letter-spacing:12px;
   padding:12px;
   border-radius:12px;
   border:1px solid #ddd;
-  margin-bottom:12px;
 }
-
-input[type=file]{
-  margin-bottom:15px;
+button{
+  margin-top:20px;
+  padding:14px 28px;
+  border:none;
+  border-radius:14px;
+  background:var(--primary);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
 }
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(40px)}
-  to{opacity:1;transform:translateY(0)}
+/* Dashboard */
+#dashboard{
+  width:90%;max-width:1100px;
+  animation:fadeIn 1s ease;
 }
+.top{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:30px
+}
+.menu{cursor:pointer;color:var(--dark);font-weight:600}
+.cards{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:30px
+}
+.card{
+  background:white;border-radius:24px;
+  padding:24px;min-height:260px;
+  box-shadow:0 30px 60px rgba(0,0,0,.12);
+  position:relative;transition:.4s
+}
+.card:hover{transform:translateY(-8px)}
+.number{
+  position:absolute;top:-14px;right:-14px;
+  background:var(--primary);color:white;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:bold
+}
+.preview img{width:100%;border-radius:16px}
+form input,form textarea{
+  width:100%;margin-bottom:12px;padding:12px;border-radius:12px;border:1px solid #ddd
+}
+.plus{
+  font-size:72px;color:var(--primary);
+  display:flex;align-items:center;justify-content:center;height:100%
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 </style>
 </head>
-
 <body>
 
-<div class="card" id="login">
-  <h2>دخول الأدمن</h2>
-
-  <div class="pin">
-    <input maxlength="1">
-    <input maxlength="1">
-    <input maxlength="1">
-    <input maxlength="1">
-  </div>
-
-  <button onclick="check()">دخول</button>
+<div id="login">
+  <h2>دخول الأدمين</h2>
+  <input id="code" maxlength="4" placeholder="0000" />
+  <br />
+  <button onclick="login()">دخول</button>
 </div>
 
-<div class="card" id="panel">
-  <h2>بسم الله وزد منتجك إن شاء الله</h2>
+<div id="dashboard" class="hidden">
+  <div class="top">
+    <h2>السلام عليكم يا صاحب المتجر</h2>
+    <div class="menu">قائمة المنتجات</div>
+  </div>
 
-  <input type="text" placeholder="اسم المنتج">
-  <textarea placeholder="وصف المنتج"></textarea>
-  <input type="file">
-  <button>حفظ المنتج</button>
+  <div class="cards">
+    <div class="card" id="card1">
+      <div class="number">1</div>
+      <div class="preview">آخر منتج سيظهر هنا</div>
+    </div>
+
+    <div class="card" id="card2">
+      <div class="number">2</div>
+      <form onsubmit="saveProduct(event)">
+        <input placeholder="اسم المنتج" required />
+        <textarea placeholder="وصف المنتج"></textarea>
+        <input type="file" accept="image/*" />
+        <button>حفظ المنتج</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="number">3</div>
+      <div class="plus">+</div>
+    </div>
+  </div>
 </div>
 
 <script>
-const inputs=document.querySelectorAll('.pin input');
-inputs.forEach((i,idx)=>{
-  i.addEventListener('input',()=>{
-    if(i.value && inputs[idx+1]) inputs[idx+1].focus();
-  });
-});
-
-function check(){
-  let code='';
-  inputs.forEach(i=>code+=i.value);
-  if(code==='0000'){
-    document.getElementById('login').style.display='none';
-    document.getElementById('panel').style.display='block';
-  }else{
-    alert('كلمة المرور غير صحيحة');
+function login(){
+  if(document.getElementById('code').value==='0000'){
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
   }
 }
+function saveProduct(e){
+  e.preventDefault();
+  document.querySelector('#card1 .preview').innerText='تم إضافة منتج جديد';
+}
 </script>
-
 </body>
 </html>
-
-
