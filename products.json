@@ -1,8 +1,12 @@
 [
   {
-    "name": "iPhone 19 Pro",
-    "description": "هاتف فخم بأداء قوي وكاميرا احترافية لعشاق التميز.",
-    "price": "حسب الطلب",
-    "image": "https://images.unsplash.com/photo-1605236453806-6ff36851218e"
+    "name": "mannet play2",
+    "price": "45 MAD",
+    "image": "images/Capture d'écran 2026-01-22 182702.png"
+  },
+  {
+    "name": "casque",
+    "price": "50 MAD",
+    "image": "images/Capture d'écran 2026-01-23 151207.png"
   }
 ]
