@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <title>Electro Salah | متجر الإلكترونيات</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Electro Salah | متجر إلكترونيات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
@@ -14,141 +14,119 @@
     }
 
     /* شاشة الترحيب */
-    #splash {
+    #intro {
       position: fixed;
       inset: 0;
-      background: white;
+      background: #fff;
       display: flex;
-      flex-direction: column;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       z-index: 9999;
-      animation: fadeOut 2s ease forwards;
-      animation-delay: 3.5s;
+      animation: fadeOut 1.5s ease forwards;
+      animation-delay: 2.5s;
     }
 
-    #splash h1 {
+    #intro h1 {
       font-size: 42px;
-      margin: 10px 0;
+      font-weight: 700;
+      letter-spacing: 1px;
+      animation: fadeIn 1.5s ease;
     }
 
-    #splash h2 {
-      font-size: 26px;
-      margin: 5px 0;
-    }
-
-    #splash h3 {
-      font-size: 34px;
-      margin: 10px 0;
-      font-weight: bold;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+      to { opacity: 0; visibility: hidden; }
     }
 
-    /* المتجر */
-    #shop {
-      display: none;
-      padding: 20px;
-      max-width: 1100px;
-      margin: auto;
-    }
-
-    .search {
-      margin: 20px 0;
+    header {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #fff;
+      padding: 30px 15px;
       text-align: center;
     }
 
-    .search input {
-      width: 80%;
+    header h2 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .search-box {
+      margin: 30px auto;
       max-width: 400px;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
-
-    .product {
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 15px;
       text-align: center;
     }
 
-    .product img {
+    .search-box input {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 10px;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
     }
 
-    .product h4 {
-      margin: 10px 0 5px;
+    /* مكان المنتجات */
+    #products {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 15px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
     }
 
-    .product p {
+    /* رسالة فارغ */
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #666;
+      font-size: 18px;
+      padding: 60px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
       font-size: 14px;
-      color: #555;
-    }
-
-    .buy {
-      margin-top: 10px;
-      padding: 10px;
-      background: black;
-      color: white;
-      text-decoration: none;
-      display: inline-block;
-      border-radius: 5px;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- شاشة الترحيب -->
-  <div id="splash">
-    <h1>السلام عليكم ورحمة الله وبركاته</h1>
-    <h2>مرحبا بكم في</h2>
-    <h3>Electro Salah</h3>
+  <!-- شاشة البداية -->
+  <div id="intro">
+    <h1>مرحبًا بكم في متجر Electro Salah</h1>
   </div>
 
-  <!-- المتجر -->
-  <div id="shop">
-    <div class="search">
-      <input type="text" placeholder="ابحث عن منتجك..." />
-    </div>
+  <header>
+    <h2>Electro Salah</h2>
+    <p>إلكترونيات مختارة بعناية · طلب مباشر عبر واتساب</p>
+  </header>
 
-    <div class="products">
-      <div class="product">
-        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9" />
-        <h4>iPhone 15 Pro</h4>
-        <p>أداء قوي، كاميرا احترافية، وتصميم فاخر.</p>
-        <a class="buy" href="https://wa.me/212600000000" target="_blank">اطلب الآن</a>
-      </div>
+  <div class="search-box">
+    <input type="text" placeholder="ابحث عن المنتج الذي تريد...">
+  </div>
 
-      <div class="product">
-        <img src="https://images.unsplash.com/photo-1518444028785-8f7c1b7c1c0d" />
-        <h4>ساعة ذكية</h4>
-        <p>تتبع صحي، بطارية قوية، تصميم أنيق.</p>
-        <a class="buy" href="https://wa.me/212600000000" target="_blank">اطلب الآن</a>
-      </div>
+  <!-- المنتجات (فارغة تمامًا) -->
+  <div id="products">
+    <div class="empty">
+      لا توجد منتجات حاليًا.<br>
+      سيتم عرض المنتجات فور إضافتها من لوحة الإدارة.
     </div>
   </div>
 
-  <script>
-    // بعد انتهاء الترحيب، أظهر المتجر
-    setTimeout(() => {
-      document.getElementById("shop").style.display = "block";
-    }, 3500);
-  </script>
+  <footer>
+    Electro Salah © 2026
+  </footer>
 
 </body>
 </html>
