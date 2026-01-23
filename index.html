@@ -1,78 +1,56 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Electro Salah | متجر إلكترونيات</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Electro Salah | متجر الإلكترونيات</title>
 
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-family: Arial, Tahoma, sans-serif;
       background: #ffffff;
-      color: #000;
+      text-align: center;
     }
 
     /* شاشة الترحيب */
-    #intro {
+    #welcome {
       position: fixed;
       inset: 0;
-      background: #ffffff;
+      background: white;
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       z-index: 9999;
-      animation: hideIntro 1.4s ease forwards;
-      animation-delay: 2.8s;
     }
 
-    .intro-text {
-      text-align: center;
-      animation: fadeIn 1.2s ease;
-    }
-
-    .salam {
+    #welcome h1 {
       font-size: 48px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .welcome {
-      font-size: 26px;
-      font-weight: 400;
       margin-bottom: 10px;
     }
 
-    .brand {
-      font-size: 38px;
-      font-weight: 600;
-      letter-spacing: 1px;
+    #welcome h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: normal;
     }
 
-    /* المتجر */
-    main {
-      padding: 40px;
-      text-align: center;
+    #welcome h3 {
+      font-size: 34px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    /* الموقع */
+    #site {
       display: none;
+      padding: 30px;
     }
 
-    /* أنيميشن */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes hideIntro {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+    input {
+      padding: 10px;
+      width: 250px;
+      font-size: 16px;
     }
   </style>
 </head>
@@ -80,25 +58,25 @@
 <body>
 
   <!-- شاشة الترحيب -->
-  <div id="intro">
-    <div class="intro-text">
-      <div class="salam">السلام عليكم ورحمة الله وبركاته</div>
-      <div class="welcome">مرحبا بكم في</div>
-      <div class="brand">Electro Salah</div>
-    </div>
+  <div id="welcome">
+    <h1>السلام عليكم ورحمة الله وبركاته</h1>
+    <h2>مرحبا بكم في</h2>
+    <h3>Electro Salah</h3>
   </div>
 
-  <!-- المتجر (فارغ إلى أن تضيف المنتجات من admin) -->
-  <main id="shop">
-    <!-- هنا ستظهر المنتجات لاحقاً -->
-  </main>
+  <!-- الموقع -->
+  <div id="site">
+    <h2>🔍 إبحث عن منتجك</h2>
+    <input type="text" placeholder="اكتب اسم المنتج..." />
+    <p style="margin-top:20px;">المنتجات ستظهر هنا إن شاء الله</p>
+  </div>
 
   <script>
     setTimeout(() => {
-      document.getElementById("shop").style.display = "block";
-    }, 2800);
+      document.getElementById("welcome").style.display = "none";
+      document.getElementById("site").style.display = "block";
+    }, 3000);
   </script>
 
 </body>
 </html>
-
