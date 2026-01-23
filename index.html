@@ -1,219 +1,134 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>Electro Salah | متجر إلكترونيات</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Electro Salah | متجر إلكترونيات</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-*{
-  box-sizing:border-box;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-}
-body{
-  margin:0;
-  background:#f4f6f8;
-  color:#111;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
 
-/* INTRO */
-#intro{
-  position:fixed;
-  inset:0;
-  background:#ffffff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-  animation: introFade 1.2s ease forwards;
-  animation-delay:2.8s;
-}
-#intro h1{
-  font-size:42px;
-  font-weight:600;
-  color:#000;
-  text-align:center;
-  letter-spacing:1px;
-  animation: introMove 2s ease;
-}
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #000;
+    }
 
-@keyframes introMove{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-@keyframes introFade{
-  to{opacity:0; visibility:hidden;}
-}
+    /* شاشة الترحيب */
+    #intro {
+      position: fixed;
+      inset: 0;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      animation: fadeOut 1.2s ease forwards;
+      animation-delay: 2.8s;
+    }
 
-/* HEADER */
-header{
-  padding:28px;
-  text-align:center;
-  background:linear-gradient(135deg,#0f172a,#1e293b);
-  color:#fff;
-}
-header h2{margin:0;font-size:28px}
-header p{opacity:.9;margin-top:6px}
+    #intro h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      opacity: 0;
+      animation: fadeIn 1.5s ease forwards;
+    }
 
-/* SEARCH */
-.search-box{
-  max-width:500px;
-  margin:30px auto;
-  text-align:center;
-}
-.search-box input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  font-size:16px;
-  box-shadow:0 6px 20px rgba(0,0,0,.12);
-}
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
-/* PRODUCTS */
-.products{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-  padding:30px;
-  max-width:1200px;
-  margin:auto;
-}
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
 
-/* EMPTY STATE */
-.empty{
-  text-align:center;
-  color:#666;
-  font-size:18px;
-  padding:40px;
-}
+    /* الهيدر */
+    header {
+      background: linear-gradient(135deg, #0f172a, #020617);
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+    }
 
-.card{
-  background:#fff;
-  border-radius:18px;
-  overflow:hidden;
-  box-shadow:0 15px 35px rgba(0,0,0,.15);
-  transition:.3s;
-}
-.card:hover{transform:translateY(-6px)}
+    header h2 {
+      margin: 0;
+      font-size: 2.4rem;
+    }
 
-.card img{
-  width:100%;
-  height:220px;
-  object-fit:cover;
-}
+    header p {
+      margin-top: 10px;
+      opacity: 0.85;
+    }
 
-.card-content{
-  padding:18px;
-}
-.card-content h3{margin:0 0 8px}
-.card-content p{
-  font-size:14px;
-  color:#555;
-}
-.price{
-  margin:12px 0;
-  font-weight:bold;
-  color:#2563eb;
-}
+    /* البحث */
+    .search-box {
+      max-width: 420px;
+      margin: 30px auto;
+      padding: 0 15px;
+    }
 
-.order-btn{
-  display:block;
-  text-align:center;
-  padding:12px;
-  border-radius:12px;
-  background:#22c55e;
-  color:#fff;
-  text-decoration:none;
-  font-weight:bold;
-}
-.order-btn:hover{background:#16a34a}
+    .search-box input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 30px;
+      border: 1px solid #ddd;
+      font-size: 1rem;
+      outline: none;
+    }
 
-footer{
-  text-align:center;
-  padding:20px;
-  color:#777;
-}
-</style>
+    /* المتجر (فارغ) */
+    .products {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      color: #777;
+      font-size: 1.1rem;
+      padding: 60px 0;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- INTRO -->
-<div id="intro">
-  <h1>
-    السلام عليكم<br>
-    مرحبًا بكم في متجر إلكترونيات صلاح
-  </h1>
-</div>
+  <!-- شاشة الترحيب -->
+  <div id="intro">
+    <h1>مرحبًا بكم في<br>Electro Salah</h1>
+  </div>
 
-<header>
-  <h2>Electro Salah</h2>
-  <p>إلكترونيات مختارة بعناية • طلب مباشر عبر واتساب</p>
-</header>
+  <!-- الموقع -->
+  <header>
+    <h2>Electro Salah</h2>
+    <p>إلكترونيات مختارة بعناية · طلب مباشر عبر واتساب</p>
+  </header>
 
-<div class="search-box">
-  <input type="text" placeholder="ابحث عن المنتج الذي تريد..." onkeyup="searchProduct(this.value)">
-</div>
+  <div class="search-box">
+    <input type="text" placeholder="ابحث عن المنتج الذي تريد..." disabled>
+  </div>
 
-<section class="products" id="products">
-  <div class="empty">لا توجد منتجات حاليًا</div>
-</section>
+  <section class="products">
+    <div class="empty">
+      لا توجد منتجات بعد.<br>
+      سيتم عرض المنتجات هنا فور إضافتها من لوحة الإدارة.
+    </div>
+  </section>
 
-<footer>
-© 2026 Electro Salah
-</footer>
-
-<script>
-let allProducts = [];
-
-fetch('products.json')
-  .then(res => res.json())
-  .then(products => {
-    allProducts = products;
-    if(products.length === 0){
-      document.getElementById('products').innerHTML =
-        '<div class="empty">لا توجد منتجات حاليًا</div>';
-    }else{
-      showProducts(products);
-    }
-  });
-
-function showProducts(products){
-  const container = document.getElementById('products');
-  container.innerHTML = '';
-  products.forEach(p => {
-    container.innerHTML += `
-      <div class="card">
-        <img src="${p.image}">
-        <div class="card-content">
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
-          <div class="price">${p.price}</div>
-          <a class="order-btn"
-             href="https://wa.me/212614175097?text=أريد%20${encodeURIComponent(p.name)}"
-             target="_blank">
-             اطلب الآن
-          </a>
-        </div>
-      </div>
-    `;
-  });
-}
-
-function searchProduct(value){
-  value = value.toLowerCase();
-  const filtered = allProducts.filter(p =>
-    p.name.toLowerCase().includes(value)
-  );
-  if(filtered.length === 0){
-    document.getElementById('products').innerHTML =
-      '<div class="empty">لا يوجد منتج بهذا الاسم</div>';
-  }else{
-    showProducts(filtered);
-  }
-}
-</script>
+</body>
+</html>
 
 </body>
 </html>
