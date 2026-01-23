@@ -25,47 +25,49 @@ body{
   align-items:center;
   justify-content:center;
   z-index:9999;
-  animation: fadeOut 1.5s ease forwards;
-  animation-delay:3s;
+  animation: introFade 1.2s ease forwards;
+  animation-delay:2.8s;
 }
 #intro h1{
+  font-size:42px;
+  font-weight:600;
+  color:#000;
   text-align:center;
-  font-size:36px;
-  color:#2563eb;
-  text-shadow:0 0 20px rgba(37,99,235,.6);
-  animation: glow 1.5s infinite alternate;
+  letter-spacing:1px;
+  animation: introMove 2s ease;
 }
-@keyframes glow{
-  from{opacity:.6}
-  to{opacity:1}
+
+@keyframes introMove{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
-@keyframes fadeOut{
+@keyframes introFade{
   to{opacity:0; visibility:hidden;}
 }
 
 /* HEADER */
 header{
-  padding:25px;
+  padding:28px;
   text-align:center;
   background:linear-gradient(135deg,#0f172a,#1e293b);
   color:#fff;
 }
-header h2{margin:0}
-header p{opacity:.9}
+header h2{margin:0;font-size:28px}
+header p{opacity:.9;margin-top:6px}
 
 /* SEARCH */
 .search-box{
   max-width:500px;
-  margin:25px auto;
+  margin:30px auto;
   text-align:center;
 }
 .search-box input{
   width:100%;
   padding:14px;
-  border-radius:12px;
+  border-radius:14px;
   border:none;
   font-size:16px;
-  box-shadow:0 6px 20px rgba(0,0,0,.15);
+  box-shadow:0 6px 20px rgba(0,0,0,.12);
 }
 
 /* PRODUCTS */
@@ -78,6 +80,14 @@ header p{opacity:.9}
   margin:auto;
 }
 
+/* EMPTY STATE */
+.empty{
+  text-align:center;
+  color:#666;
+  font-size:18px;
+  padding:40px;
+}
+
 .card{
   background:#fff;
   border-radius:18px;
@@ -85,7 +95,7 @@ header p{opacity:.9}
   box-shadow:0 15px 35px rgba(0,0,0,.15);
   transition:.3s;
 }
-.card:hover{transform:translateY(-8px)}
+.card:hover{transform:translateY(-6px)}
 
 .card img{
   width:100%;
@@ -132,7 +142,7 @@ footer{
 <!-- INTRO -->
 <div id="intro">
   <h1>
-    السلام عليكم 👋<br>
+    السلام عليكم<br>
     مرحبًا بكم في متجر إلكترونيات صلاح
   </h1>
 </div>
@@ -147,7 +157,7 @@ footer{
 </div>
 
 <section class="products" id="products">
-  <!-- المنتجات ستظهر هنا تلقائيًا -->
+  <div class="empty">لا توجد منتجات حاليًا</div>
 </section>
 
 <footer>
@@ -158,10 +168,15 @@ footer{
 let allProducts = [];
 
 fetch('products.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(products => {
     allProducts = products;
-    showProducts(products);
+    if(products.length === 0){
+      document.getElementById('products').innerHTML =
+        '<div class="empty">لا توجد منتجات حاليًا</div>';
+    }else{
+      showProducts(products);
+    }
   });
 
 function showProducts(products){
@@ -191,10 +206,16 @@ function searchProduct(value){
   const filtered = allProducts.filter(p =>
     p.name.toLowerCase().includes(value)
   );
-  showProducts(filtered);
+  if(filtered.length === 0){
+    document.getElementById('products').innerHTML =
+      '<div class="empty">لا يوجد منتج بهذا الاسم</div>';
+  }else{
+    showProducts(filtered);
+  }
 }
 </script>
 
 </body>
 </html>
+
 
