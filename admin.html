@@ -45,6 +45,10 @@
       font-size: 15px;
     }
 
+    input[type="file"] {
+      padding: 8px;
+    }
+
     button {
       margin-top: 20px;
       width: 100%;
@@ -84,8 +88,8 @@
     <label>السعر</label>
     <input id="price" placeholder="مثال: 8999 درهم">
 
-    <label>رابط صورة المنتج</label>
-    <input id="image" placeholder="https://...">
+    <label>ارفع صورة المنتج</label>
+    <input id="image" type="file" accept="image/*">
 
     <button onclick="generate()">إنشاء JSON</button>
 
@@ -96,17 +100,17 @@
     function generate() {
       const name = document.getElementById("name").value.trim();
       const price = document.getElementById("price").value.trim();
-      const image = document.getElementById("image").value.trim();
+      const imageFile = document.getElementById("image").files[0];
 
-      if (!name || !price || !image) {
-        alert("رجاءً املأ جميع الحقول");
+      if (!name || !price || !imageFile) {
+        alert("رجاءً املأ جميع الحقول وارفع صورة المنتج");
         return;
       }
 
       const product = {
         name: name,
         price: price,
-        image: image
+        image: imageFile.name
       };
 
       document.getElementById("result").value =
