@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Electro Salah | متجر إلكترونيات</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-    }
-
     body {
       margin: 0;
+      font-family: Arial, sans-serif;
       background: #ffffff;
       color: #000;
     }
@@ -21,114 +17,116 @@
     #intro {
       position: fixed;
       inset: 0;
-      background: #ffffff;
+      background: #fff;
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 9999;
-      animation: fadeOut 1.2s ease forwards;
-      animation-delay: 2.8s;
+      animation: fadeOut 1.5s ease forwards;
+      animation-delay: 2.5s;
     }
 
     #intro h1 {
-      font-size: 3rem;
+      font-size: 42px;
       font-weight: 700;
-      text-align: center;
-      opacity: 0;
-      animation: fadeIn 1.5s ease forwards;
+      letter-spacing: 1px;
+      animation: fadeIn 1.5s ease;
     }
 
     @keyframes fadeIn {
-      to { opacity: 1; }
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
+      to { opacity: 0; visibility: hidden; }
     }
 
-    /* الهيدر */
     header {
       background: linear-gradient(135deg, #0f172a, #020617);
       color: #fff;
-      padding: 50px 20px;
+      padding: 30px 15px;
       text-align: center;
     }
 
     header h2 {
       margin: 0;
-      font-size: 2.4rem;
+      font-size: 28px;
     }
 
     header p {
-      margin-top: 10px;
-      opacity: 0.85;
+      margin-top: 8px;
+      opacity: 0.9;
     }
 
-    /* البحث */
     .search-box {
-      max-width: 420px;
       margin: 30px auto;
-      padding: 0 15px;
+      max-width: 400px;
+      text-align: center;
     }
 
     .search-box input {
       width: 100%;
-      padding: 14px 18px;
-      border-radius: 30px;
-      border: 1px solid #ddd;
-      font-size: 1rem;
-      outline: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
     }
 
-    /* المتجر (فارغ) */
-    .products {
+    /* مكان المنتجات */
+    #products {
       max-width: 1100px;
       margin: 40px auto;
-      padding: 0 20px;
+      padding: 0 15px;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 25px;
     }
 
+    /* رسالة فارغ */
     .empty {
       grid-column: 1 / -1;
       text-align: center;
-      color: #777;
-      font-size: 1.1rem;
+      color: #666;
+      font-size: 18px;
       padding: 60px 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+      font-size: 14px;
     }
   </style>
 </head>
-
 <body>
 
-  <!-- شاشة الترحيب -->
+  <!-- شاشة البداية -->
   <div id="intro">
-    <h1>مرحبًا بكم في<br>Electro Salah</h1>
+    <h1>مرحبًا بكم في متجر Electro Salah</h1>
   </div>
 
-  <!-- الموقع -->
   <header>
     <h2>Electro Salah</h2>
     <p>إلكترونيات مختارة بعناية · طلب مباشر عبر واتساب</p>
   </header>
 
   <div class="search-box">
-    <input type="text" placeholder="ابحث عن المنتج الذي تريد..." disabled>
+    <input type="text" placeholder="ابحث عن المنتج الذي تريد...">
   </div>
 
-  <section class="products">
+  <!-- المنتجات (فارغة تمامًا) -->
+  <div id="products">
     <div class="empty">
-      لا توجد منتجات بعد.<br>
-      سيتم عرض المنتجات هنا فور إضافتها من لوحة الإدارة.
+      لا توجد منتجات حاليًا.<br>
+      سيتم عرض المنتجات فور إضافتها من لوحة الإدارة.
     </div>
-  </section>
+  </div>
 
-</body>
-</html>
+  <footer>
+    Electro Salah © 2026
+  </footer>
 
 </body>
 </html>
