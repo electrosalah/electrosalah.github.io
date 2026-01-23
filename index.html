@@ -29,6 +29,7 @@ body{
   animation-delay:3s;
 }
 #intro h1{
+  text-align:center;
   font-size:36px;
   color:#2563eb;
   text-shadow:0 0 20px rgba(37,99,235,.6);
@@ -130,7 +131,10 @@ footer{
 
 <!-- INTRO -->
 <div id="intro">
-  <h1>السلام عليكم 👋<br>مرحبًا بكم في متجر إلكترونيات صلاح</h1>
+  <h1>
+    السلام عليكم 👋<br>
+    مرحبًا بكم في متجر إلكترونيات صلاح
+  </h1>
 </div>
 
 <header>
@@ -143,40 +147,7 @@ footer{
 </div>
 
 <section class="products" id="products">
-
-<!-- iPhone -->
-<div class="card" data-name="iphone">
-  <img src="https://images.unsplash.com/photo-1605236453806-6ff36851218e">
-  <div class="card-content">
-    <h3>iPhone 19 Pro</h3>
-    <p>هاتف فخم بتصميم أنيق، أداء خارق، وكاميرا احترافية لعشاق الجودة والتميز.</p>
-    <div class="price">متوفر حسب الطلب</div>
-    <a class="order-btn" href="https://wa.me/212614175097" target="_blank">اطلب الآن</a>
-  </div>
-</div>
-
-<!-- Watch -->
-<div class="card" data-name="watch">
-  <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b">
-  <div class="card-content">
-    <h3>ساعة ذكية</h3>
-    <p>تابع صحتك، إشعاراتك، وأناقتك في جهاز واحد عصري وعملي.</p>
-    <div class="price">جودة ممتازة</div>
-    <a class="order-btn" href="https://wa.me/212614175097" target="_blank">اطلب الآن</a>
-  </div>
-</div>
-
-<!-- Headphones -->
-<div class="card" data-name="headphones">
-  <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90">
-  <div class="card-content">
-    <h3>سماعات Bluetooth</h3>
-    <p>صوت نقي، عزل ممتاز، وراحة مثالية للاستخدام اليومي.</p>
-    <div class="price">رائجة الآن</div>
-    <a class="order-btn" href="https://wa.me/212614175097" target="_blank">اطلب الآن</a>
-  </div>
-</div>
-
+  <!-- المنتجات ستظهر هنا تلقائيًا -->
 </section>
 
 <footer>
@@ -184,11 +155,43 @@ footer{
 </footer>
 
 <script>
-function searchProduct(value){
-  value=value.toLowerCase();
-  document.querySelectorAll('.card').forEach(card=>{
-    card.style.display = card.dataset.name.includes(value) ? 'block' : 'none';
+let allProducts = [];
+
+fetch('products.json')
+  .then(response => response.json())
+  .then(products => {
+    allProducts = products;
+    showProducts(products);
   });
+
+function showProducts(products){
+  const container = document.getElementById('products');
+  container.innerHTML = '';
+  products.forEach(p => {
+    container.innerHTML += `
+      <div class="card">
+        <img src="${p.image}">
+        <div class="card-content">
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <div class="price">${p.price}</div>
+          <a class="order-btn"
+             href="https://wa.me/212614175097?text=أريد%20${encodeURIComponent(p.name)}"
+             target="_blank">
+             اطلب الآن
+          </a>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function searchProduct(value){
+  value = value.toLowerCase();
+  const filtered = allProducts.filter(p =>
+    p.name.toLowerCase().includes(value)
+  );
+  showProducts(filtered);
 }
 </script>
 
