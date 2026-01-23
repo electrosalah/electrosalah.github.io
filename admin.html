@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>Admin Premium</title>
+
 <style>
 :root{
   --light:#f6f8fc;
@@ -10,30 +11,46 @@
   --primary:#4f46e5;
 }
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
+
 body{
-  margin:0;min-height:100vh;
+  margin:0;
+  min-height:100vh;
   background:linear-gradient(135deg,#eef2ff,#f8fafc);
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
 .hidden{display:none}
-/* Login */
+
+/* LOGIN */
 #login{
   background:white;
-  padding:40px;
-  border-radius:20px;
+  padding:50px;
+  border-radius:24px;
   box-shadow:0 40px 80px rgba(0,0,0,.15);
   text-align:center;
   animation:fadeUp 1s ease;
 }
+
+#login h2{
+  margin-bottom:10px;
+}
+
+#login p{
+  color:#555;
+  margin-bottom:20px;
+}
+
 #code{
-  width:160px;
+  width:200px;
   text-align:center;
-  font-size:32px;
-  letter-spacing:12px;
-  padding:12px;
-  border-radius:12px;
+  font-size:28px;
+  padding:14px;
+  border-radius:14px;
   border:1px solid #ddd;
 }
+
 button{
   margin-top:20px;
   padding:14px 28px;
@@ -44,93 +61,208 @@ button{
   font-size:16px;
   cursor:pointer;
 }
-/* Dashboard */
+
+/* DASHBOARD */
 #dashboard{
-  width:90%;max-width:1100px;
+  width:90%;
+  max-width:1200px;
   animation:fadeIn 1s ease;
 }
+
 .top{
-  display:flex;justify-content:space-between;align-items:center;margin-bottom:30px
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px
 }
-.menu{cursor:pointer;color:var(--dark);font-weight:600}
+
+.menu{
+  cursor:pointer;
+  font-weight:600;
+  color:var(--primary);
+}
+
+/* CARDS */
 .cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:30px
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px
 }
+
 .card{
-  background:white;border-radius:24px;
-  padding:24px;min-height:260px;
+  background:white;
+  border-radius:26px;
+  padding:24px;
+  min-height:280px;
   box-shadow:0 30px 60px rgba(0,0,0,.12);
-  position:relative;transition:.4s
+  position:relative;
+  transition:.4s
 }
-.card:hover{transform:translateY(-8px)}
+
+.card:hover{
+  transform:translateY(-8px)
+}
+
 .number{
-  position:absolute;top:-14px;right:-14px;
-  background:var(--primary);color:white;
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
+  position:absolute;
+  top:-14px;
+  right:-14px;
+  background:var(--primary);
+  color:white;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-weight:bold
 }
-.preview img{width:100%;border-radius:16px}
-form input,form textarea{
-  width:100%;margin-bottom:12px;padding:12px;border-radius:12px;border:1px solid #ddd
+
+/* CARD 1 */
+.preview img{
+  width:100%;
+  border-radius:16px;
+  margin-bottom:10px
 }
+
+/* FORM */
+form input, form textarea{
+  width:100%;
+  margin-bottom:12px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid #ddd
+}
+
+textarea{resize:none;height:70px}
+
+/* ADD */
 .plus{
-  font-size:72px;color:var(--primary);
-  display:flex;align-items:center;justify-content:center;height:100%
+  font-size:72px;
+  color:var(--primary);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100%;
+  cursor:pointer
 }
-@keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* JSON */
+#json{
+  width:100%;
+  height:120px;
+  border-radius:12px;
+  padding:12px;
+  font-family:monospace;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1}
+}
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
 </style>
 </head>
+
 <body>
 
+<!-- LOGIN -->
 <div id="login">
-  <h2>دخول الأدمين</h2>
-  <input id="code" maxlength="4" placeholder="0000" />
-  <br />
+  <h2>🔐 دخول لوحة التحكم</h2>
+  <p>أدخل كلمة المرور يا صاحب المتجر</p>
+  <input id="code" type="password" placeholder="كلمة المرور" />
+  <br>
   <button onclick="login()">دخول</button>
 </div>
 
+<!-- DASHBOARD -->
 <div id="dashboard" class="hidden">
+
   <div class="top">
-    <h2>السلام عليكم يا صاحب المتجر</h2>
-    <div class="menu">قائمة المنتجات</div>
+    <h2>لوحة إدارة المنتجات</h2>
+    <div class="menu">المنتجات المعروضة في المتجر</div>
   </div>
 
   <div class="cards">
-    <div class="card" id="card1">
+
+    <!-- CARD 1 -->
+    <div class="card">
       <div class="number">1</div>
-      <div class="preview">آخر منتج سيظهر هنا</div>
+      <div class="preview" id="lastProduct">
+        آخر منتج سيظهر هنا
+      </div>
     </div>
 
-    <div class="card" id="card2">
+    <!-- CARD 2 -->
+    <div class="card">
       <div class="number">2</div>
       <form onsubmit="saveProduct(event)">
-        <input placeholder="اسم المنتج" required />
-        <textarea placeholder="وصف المنتج"></textarea>
-        <input type="file" accept="image/*" />
-        <button>حفظ المنتج</button>
+        <input id="name" placeholder="اسم المنتج" required>
+        <textarea id="desc" placeholder="وصف المنتج"></textarea>
+        <input type="file" id="image" accept="image/*">
+        <button>إنشاء JSON</button>
       </form>
+      <textarea id="json" placeholder="JSON سيظهر هنا"></textarea>
     </div>
 
+    <!-- CARD 3 -->
     <div class="card">
       <div class="number">3</div>
-      <div class="plus">+</div>
+      <div class="plus" onclick="resetForm()">+</div>
     </div>
+
   </div>
 </div>
 
 <script>
 function login(){
-  if(document.getElementById('code').value==='0000'){
-    document.getElementById('login').classList.add('hidden');
-    document.getElementById('dashboard').classList.remove('hidden');
+  if(document.getElementById('code').value === '0000'){
+    loginBox = document.getElementById('login');
+    dash = document.getElementById('dashboard');
+    loginBox.classList.add('hidden');
+    dash.classList.remove('hidden');
   }
 }
+
 function saveProduct(e){
   e.preventDefault();
-  document.querySelector('#card1 .preview').innerText='تم إضافة منتج جديد';
+
+  const name = document.getElementById('name').value;
+  const desc = document.getElementById('desc').value;
+  const file = document.getElementById('image').files[0];
+
+  if(!file){
+    alert('ارفع الصورة');
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = function(){
+    const product = {
+      name: name,
+      description: desc,
+      image: reader.result
+    };
+
+    document.getElementById('json').value =
+      JSON.stringify(product, null, 2) + ",";
+
+    document.getElementById('lastProduct').innerHTML =
+      `<img src="${reader.result}">
+       <strong>${name}</strong><br>${desc}`;
+  }
+  reader.readAsDataURL(file);
+}
+
+function resetForm(){
+  document.querySelector('form').reset();
+  document.getElementById('json').value = '';
 }
 </script>
+
 </body>
 </html>
+
