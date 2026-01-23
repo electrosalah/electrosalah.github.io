@@ -1,122 +1,145 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin – Electro Salah</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Admin – Electro Salah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, sans-serif;
-      background: linear-gradient(135deg, #eef2ff, #f8fafc);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .box {
-      background: #fff;
-      width: 420px;
-      max-width: 95%;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.1);
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 100%;
-      padding: 12px;
-      margin-top: 6px;
-      border-radius: 10px;
-      border: 1px solid #ddd;
-      font-size: 15px;
-    }
-
-    input[type="file"] {
-      padding: 8px;
-    }
-
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 14px;
-      background: #2563eb;
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #1d4ed8;
-    }
-
-    textarea {
-      width: 100%;
-      margin-top: 20px;
-      height: 140px;
-      border-radius: 10px;
-      padding: 12px;
-      font-family: monospace;
-      font-size: 14px;
-    }
-  </style>
+<style>
+body{
+  margin:0;
+  font-family:"Segoe UI",Tahoma,sans-serif;
+  background:linear-gradient(135deg,#eef2ff,#f8fafc);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hidden{display:none}
+.box{
+  background:#fff;
+  width:460px;
+  max-width:95%;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 20px 40px rgba(0,0,0,.12);
+  animation:fade .8s ease;
+}
+h1{text-align:center;margin-bottom:20px}
+label{display:block;margin-top:15px;font-weight:600}
+input{
+  width:100%;
+  padding:12px;
+  margin-top:6px;
+  border-radius:10px;
+  border:1px solid #ddd;
+  font-size:15px;
+}
+button{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  background:#2563eb;
+  color:#fff;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  cursor:pointer;
+}
+button:hover{background:#1d4ed8}
+textarea{
+  width:100%;
+  margin-top:20px;
+  height:180px;
+  border-radius:10px;
+  padding:12px;
+  font-family:monospace;
+  font-size:14px;
+}
+.product-count{
+  text-align:center;
+  margin-top:10px;
+  font-weight:600;
+  color:#2563eb;
+}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}to{opacity:1}}
+</style>
 </head>
 
 <body>
 
-  <div class="box">
-    <h1>إضافة منتج</h1>
+<!-- LOGIN -->
+<div class="box" id="loginBox">
+  <h1>دخول الأدمين</h1>
+  <input id="pass" placeholder="أدخل كلمة المرور">
+  <button onclick="login()">دخول</button>
+</div>
 
-    <label>اسم المنتج</label>
-    <input id="name" placeholder="مثال: iPhone 15 Pro">
+<!-- DASHBOARD -->
+<div class="box hidden" id="adminBox">
+  <h1>إضافة منتج</h1>
 
-    <label>السعر</label>
-    <input id="price" placeholder="مثال: 8999 درهم">
+  <label>اسم المنتج</label>
+  <input id="name">
 
-    <label>ارفع صورة المنتج</label>
-    <input id="image" type="file" accept="image/*">
+  <label>السعر</label>
+  <input id="price">
 
-    <button onclick="generate()">إنشاء JSON</button>
+  <label>ارفع صورة المنتج</label>
+  <input id="image" type="file" accept="image/*">
 
-    <textarea id="result" placeholder="JSON سيظهر هنا"></textarea>
-  </div>
+  <button onclick="addProduct()">إضافة المنتج</button>
 
-  <script>
-    function generate() {
-      const name = document.getElementById("name").value.trim();
-      const price = document.getElementById("price").value.trim();
-      const imageFile = document.getElementById("image").files[0];
+  <div class="product-count" id="count">عدد المنتجات: 0</div>
 
-      if (!name || !price || !imageFile) {
-        alert("رجاءً املأ جميع الحقول وارفع صورة المنتج");
-        return;
-      }
+  <button onclick="generateJSON()">إنشاء products.json</button>
 
-      const product = {
-        name: name,
-        price: price,
-        image: imageFile.name
-      };
+  <textarea id="result" placeholder="انسخ هذا المحتوى وضعه في ملف products.json"></textarea>
+</div>
 
-      document.getElementById("result").value =
-        JSON.stringify(product, null, 2) + ",";
-    }
-  </script>
+<script>
+const products = [];
+
+function login(){
+  if(document.getElementById("pass").value === "0000"){
+    document.getElementById("loginBox").classList.add("hidden");
+    document.getElementById("adminBox").classList.remove("hidden");
+  } else {
+    alert("كلمة المرور غير صحيحة");
+  }
+}
+
+function addProduct(){
+  const name = document.getElementById("name").value.trim();
+  const price = document.getElementById("price").value.trim();
+  const imageInput = document.getElementById("image");
+
+  if(!name || !price || !imageInput.files[0]){
+    alert("أكمل جميع الحقول");
+    return;
+  }
+
+  const imagePath = "images/" + imageInput.files[0].name;
+
+  products.push({
+    name:name,
+    price:price,
+    image:imagePath
+  });
+
+  document.getElementById("count").innerText =
+    "عدد المنتجات: " + products.length;
+
+  document.getElementById("name").value="";
+  document.getElementById("price").value="";
+  imageInput.value="";
+}
+
+function generateJSON(){
+  document.getElementById("result").value =
+    JSON.stringify(products, null, 2);
+}
+</script>
 
 </body>
 </html>
