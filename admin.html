@@ -7,200 +7,204 @@
 <style>
 :root{
   --primary:#4f46e5;
-  --bg:#f4f6fb;
+  --dark:#0f172a;
+  --bg:#f6f8fc;
 }
+
 *{box-sizing:border-box;font-family:'Segoe UI',Tahoma}
+
 body{
-  margin:0;min-height:100vh;
+  margin:0;
+  min-height:100vh;
   background:linear-gradient(135deg,#eef2ff,#f8fafc);
-  display:flex;justify-content:center;align-items:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
+
 .hidden{display:none}
 
-/* LOGIN */
+/* animations */
+.fade{
+  animation:fade .6s ease;
+}
+.slide{
+  animation:slide .6s ease;
+}
+
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
+}
+@keyframes slide{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* login */
 #login{
   background:white;
-  padding:50px;
-  border-radius:22px;
-  box-shadow:0 40px 80px rgba(0,0,0,.15);
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 30px 70px rgba(0,0,0,.15);
   text-align:center;
 }
-#login p{color:#555}
+
 #code{
-  padding:14px;
-  width:220px;
-  font-size:18px;
-  border-radius:14px;
-  border:1px solid #ddd;
+  border:none;
+  border-bottom:2px solid #ddd;
+  font-size:32px;
+  letter-spacing:12px;
   text-align:center;
+  width:160px;
+  outline:none;
 }
+
 button{
   margin-top:20px;
   padding:14px 28px;
-  border:none;border-radius:14px;
+  border:none;
+  border-radius:14px;
   background:var(--primary);
-  color:white;font-size:16px;cursor:pointer;
+  color:white;
+  cursor:pointer;
 }
 
-/* DASHBOARD */
-#dashboard,#productsPage{
-  width:90%;max-width:1200px;
+/* dashboard */
+#dashboard{
+  width:90%;
+  max-width:1100px;
 }
+
 .top{
-  display:flex;justify-content:space-between;
-  margin-bottom:30px;align-items:center
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
 }
-.menu{cursor:pointer;color:var(--primary);font-weight:600}
 
-/* CARDS */
+.menu{
+  cursor:pointer;
+  font-weight:600;
+  color:var(--primary);
+}
+
 .cards{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:30px
-}
-.card{
-  background:white;border-radius:24px;
-  padding:24px;min-height:260px;
-  box-shadow:0 30px 60px rgba(0,0,0,.12);
-  position:relative
-}
-.number{
-  position:absolute;top:-14px;right:-14px;
-  background:var(--primary);color:white;
-  width:44px;height:44px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-}
-.plus{
-  font-size:72px;color:var(--primary);
-  display:flex;justify-content:center;align-items:center;
-  height:100%;cursor:pointer
-}
-.preview img{width:100%;border-radius:16px}
-
-/* FORM */
-input,textarea{
-  width:100%;margin-bottom:10px;
-  padding:12px;border-radius:12px;border:1px solid #ddd
-}
-textarea{resize:none;height:70px}
-
-/* PRODUCTS PAGE */
-.products{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
 }
-.product{
-  background:white;padding:20px;border-radius:20px;
-  box-shadow:0 20px 40px rgba(0,0,0,.1)
+
+.card{
+  background:white;
+  border-radius:24px;
+  padding:24px;
+  min-height:240px;
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
+  transition:.4s;
+  cursor:pointer;
 }
-.product img{width:100%;border-radius:12px}
+
+.card:hover{
+  transform:translateY(-8px)
+}
+
+.plus{
+  font-size:72px;
+  color:var(--primary);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100%;
+}
+
+/* products page */
+#productsPage{
+  background:white;
+  padding:40px;
+  border-radius:24px;
+  box-shadow:0 30px 70px rgba(0,0,0,.15);
+}
 </style>
 </head>
 
 <body>
 
 <!-- LOGIN -->
-<div id="login">
-  <p>أدخل كلمة المرور يا صاحب المتجر</p>
-  <input id="code" type="password" placeholder="كلمة المرور">
+<div id="login" class="fade">
+  <h2>دخول الإدارة</h2>
+  <input id="code" maxlength="4" placeholder="0000">
   <br>
   <button onclick="login()">دخول</button>
 </div>
 
 <!-- DASHBOARD -->
-<div id="dashboard" class="hidden">
+<div id="dashboard" class="hidden slide">
   <div class="top">
-    <h2>لوحة التحكم</h2>
-    <div class="menu" onclick="openProducts()">المنتجات المعروضة في المتجر</div>
+    <h2>مرحبا بك</h2>
+    <div class="menu" onclick="openProducts()">المنتجات المعروضة</div>
   </div>
 
   <div class="cards">
     <div class="card">
-      <div class="number">1</div>
-      <div class="preview" id="last">آخر منتج سيظهر هنا</div>
+      <h3>آخر منتج</h3>
+      <p id="lastProduct">لا يوجد منتجات</p>
     </div>
 
     <div class="card">
-      <div class="number">2</div>
-      <form onsubmit="save(event)">
-        <input id="name" placeholder="اسم المنتج">
-        <textarea id="desc" placeholder="وصف المنتج"></textarea>
-        <input id="img" type="file" accept="image/*">
-        <button>إضافة</button>
-      </form>
+      <h3>إضافة منتج</h3>
+      <input id="pname" placeholder="اسم المنتج">
+      <textarea id="pdesc" placeholder="وصف المنتج"></textarea>
+      <button onclick="addProduct()">حفظ</button>
     </div>
 
-    <div class="card">
-      <div class="number">3</div>
-      <div class="plus" onclick="showForm()">+</div>
+    <div class="card" onclick="addProduct()">
+      <div class="plus">+</div>
     </div>
   </div>
 </div>
 
 <!-- PRODUCTS PAGE -->
-<div id="productsPage" class="hidden">
-  <div class="top">
-    <h2>المنتجات المعروضة</h2>
-    <div class="menu" onclick="back()">رجوع</div>
-  </div>
-  <div class="products" id="products"></div>
-  <p id="empty">لم يتم إضافة أي منتج بعد</p>
+<div id="productsPage" class="hidden slide">
+  <h2>المنتجات</h2>
+  <p id="productsList">لم يتم إضافة أي منتج إلى الآن</p>
+  <br>
+  <button onclick="back()">رجوع</button>
 </div>
 
 <script>
 let products=[];
 
 function login(){
-  if(code.value==='0000'){
-    login.classList.add('hidden');
-    dashboard.classList.remove('hidden');
+  const code=document.getElementById('code').value;
+  if(code==='0000'){
+    document.getElementById('login').classList.add('hidden');
+    document.getElementById('dashboard').classList.remove('hidden');
   }
 }
 
-function save(e){
-  e.preventDefault();
-  const f=img.files[0];
-  if(!f)return alert('ارفع صورة');
-  const r=new FileReader();
-  r.onload=()=>{
-    const p={name:name.value,desc:desc.value,img:r.result};
-    products.push(p);
-    last.innerHTML=`<img src="${p.img}"><b>${p.name}</b><br>${p.desc}`;
-    name.value=desc.value=img.value='';
-  }
-  r.readAsDataURL(f);
-}
+function addProduct(){
+  const name=document.getElementById('pname').value;
+  if(!name)return;
 
-function showForm(){
-  document.querySelector('form').scrollIntoView({behavior:'smooth'});
+  products.push(name);
+  document.getElementById('lastProduct').innerText=name;
+  document.getElementById('pname').value='';
 }
 
 function openProducts(){
-  dashboard.classList.add('hidden');
-  productsPage.classList.remove('hidden');
-  render();
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('productsPage').classList.remove('hidden');
+
+  document.getElementById('productsList').innerText=
+    products.length ? products.join(' • ') : 'لم يتم إضافة أي منتج إلى الآن';
 }
 
 function back(){
-  productsPage.classList.add('hidden');
-  dashboard.classList.remove('hidden');
-}
-
-function render(){
-  productsDiv=document.getElementById('products');
-  productsDiv.innerHTML='';
-  empty.style.display=products.length?'none':'block';
-  products.forEach(p=>{
-    productsDiv.innerHTML+=`
-      <div class="product">
-        <img src="${p.img}">
-        <h4>${p.name}</h4>
-        <p>${p.desc}</p>
-      </div>`;
-  })
+  document.getElementById('productsPage').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
 }
 </script>
 
 </body>
 </html>
-
