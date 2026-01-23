@@ -6,6 +6,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .login-wrapper {
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      padding: 40px 35px;
+      border-radius: 24px;
+      width: 360px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.12);
+      text-align: center;
+      animation: enter 1.2s ease;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: #111827;
+    }
+
+    p {
+      margin: 0 0 28px;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      font-size: 26px;
+      text-align: center;
+      letter-spacing: 14px;
+      border-radius: 16px;
+      border: 1px solid #e5e7eb;
+      outline: none;
+      transition: all 0.4s ease;
+      background: white;
+    }
+
+    input:focus {
+      border-color: #6366f1;
+      box-shadow: 0 12px 30px rgba(99,102,241,0.25);
+    }
+
+    button {
+      margin-top: 28px;
+      width: 100%;
+      padding: 15px;
+      border-radius: 16px;
+      border: none;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(135deg, #6366f1, #4338ca);
+      color: white;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(67,56,202,0.35);
+    }
+
+    .welcome {
+      display: none;
+      font-size: 20px;
+      color: #111827;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-wrapper" id="loginBox">
+    <h1>لوحة التحكم</h1>
+    <p>أدخل الرمز السري للدخول إلى حسابك إن شاء الله</p>
+
+    <input
+      type="password"
+      id="codeInput"
+      maxlength="4"
+      placeholder="••••"
+      autocomplete="off"
+    >
+
+    <button onclick="checkCode()">دخول</button>
+  </div>
+
+  <div class="welcome" id="welcomeBox">
+    السلام عليكم يا صاحب المتجر
+  </div>
+
+  <script>
+    function checkCode() {
+      const code = document.getElementById("codeInput").value;
+
+      if (code === "0000") {
+        document.getElementById("loginBox").style.display = "none";
+        const welcome = document.getElementById("welcomeBox");
+        welcome.style.display = "block";
+
+        setTimeout(() => {
+          // هنا لاحقًا ننتقل إلى لوحة المنتجات
+          // window.location.href = "dashboard.html";
+        }, 2000);
+      } else {
+        alert("الرمز غير صحيح");
+      }
+    }
+  </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin – Electro Salah</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
     body {
       margin: 0;
       font-family: "Segoe UI", Tahoma, sans-serif;
