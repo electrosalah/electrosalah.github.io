@@ -23,18 +23,35 @@
       justify-content: center;
       z-index: 9999;
       animation: fadeOut 1.5s ease forwards;
-      animation-delay: 2.5s;
+      animation-delay: 3.5s;
     }
 
-    #intro h1 {
-      font-size: 42px;
-      font-weight: 700;
-      letter-spacing: 1px;
+    .intro-box {
+      text-align: center;
       animation: fadeIn 1.5s ease;
     }
 
+    .intro-box h1 {
+      margin: 0;
+      font-size: 44px;
+      font-weight: 800;
+    }
+
+    .intro-box h2 {
+      margin: 12px 0 0;
+      font-size: 30px;
+      font-weight: 600;
+    }
+
+    .intro-box h3 {
+      margin: 14px 0 0;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(15px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -73,7 +90,6 @@
       border: 1px solid #ccc;
     }
 
-    /* مكان المنتجات */
     #products {
       max-width: 1100px;
       margin: 40px auto;
@@ -83,7 +99,6 @@
       gap: 25px;
     }
 
-    /* رسالة فارغ */
     .empty {
       grid-column: 1 / -1;
       text-align: center;
@@ -104,7 +119,11 @@
 
   <!-- شاشة البداية -->
   <div id="intro">
-    <h1>مرحبًا بكم في متجر Electro Salah</h1>
+    <div class="intro-box">
+      <h1>السلام عليكم</h1>
+      <h2>السلام عليكم ورحمة الله وبركاته</h2>
+      <h3>Bienvenue chez Electro Salah</h3>
+    </div>
   </div>
 
   <header>
@@ -116,7 +135,6 @@
     <input type="text" placeholder="ابحث عن المنتج الذي تريد...">
   </div>
 
-  <!-- المنتجات (فارغة تمامًا) -->
   <div id="products">
     <div class="empty">
       لا توجد منتجات حاليًا.<br>
