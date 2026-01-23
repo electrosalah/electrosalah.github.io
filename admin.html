@@ -1,169 +1,99 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<title>Admin Premium</title>
+<meta charset="UTF-8">
+<title>Admin Panel</title>
 
 <style>
 :root{
-  --light:#f6f8fc;
-  --dark:#0f172a;
   --primary:#4f46e5;
+  --bg:#f4f6fb;
 }
-*{box-sizing:border-box;font-family:'Segoe UI',Tahoma,sans-serif}
-
+*{box-sizing:border-box;font-family:'Segoe UI',Tahoma}
 body{
-  margin:0;
-  min-height:100vh;
+  margin:0;min-height:100vh;
   background:linear-gradient(135deg,#eef2ff,#f8fafc);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  display:flex;justify-content:center;align-items:center;
 }
-
 .hidden{display:none}
 
 /* LOGIN */
 #login{
   background:white;
   padding:50px;
-  border-radius:24px;
+  border-radius:22px;
   box-shadow:0 40px 80px rgba(0,0,0,.15);
   text-align:center;
-  animation:fadeUp 1s ease;
 }
-
-#login h2{
-  margin-bottom:10px;
-}
-
-#login p{
-  color:#555;
-  margin-bottom:20px;
-}
-
+#login p{color:#555}
 #code{
-  width:200px;
-  text-align:center;
-  font-size:28px;
   padding:14px;
+  width:220px;
+  font-size:18px;
   border-radius:14px;
   border:1px solid #ddd;
+  text-align:center;
 }
-
 button{
   margin-top:20px;
   padding:14px 28px;
-  border:none;
-  border-radius:14px;
+  border:none;border-radius:14px;
   background:var(--primary);
-  color:white;
-  font-size:16px;
-  cursor:pointer;
+  color:white;font-size:16px;cursor:pointer;
 }
 
 /* DASHBOARD */
-#dashboard{
-  width:90%;
-  max-width:1200px;
-  animation:fadeIn 1s ease;
+#dashboard,#productsPage{
+  width:90%;max-width:1200px;
 }
-
 .top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:30px
+  display:flex;justify-content:space-between;
+  margin-bottom:30px;align-items:center
 }
-
-.menu{
-  cursor:pointer;
-  font-weight:600;
-  color:var(--primary);
-}
+.menu{cursor:pointer;color:var(--primary);font-weight:600}
 
 /* CARDS */
 .cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
+  display:grid;grid-template-columns:repeat(3,1fr);
   gap:30px
 }
-
 .card{
-  background:white;
-  border-radius:26px;
-  padding:24px;
-  min-height:280px;
+  background:white;border-radius:24px;
+  padding:24px;min-height:260px;
   box-shadow:0 30px 60px rgba(0,0,0,.12);
-  position:relative;
-  transition:.4s
+  position:relative
 }
-
-.card:hover{
-  transform:translateY(-8px)
-}
-
 .number{
-  position:absolute;
-  top:-14px;
-  right:-14px;
-  background:var(--primary);
-  color:white;
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:bold
+  position:absolute;top:-14px;right:-14px;
+  background:var(--primary);color:white;
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
 }
-
-/* CARD 1 */
-.preview img{
-  width:100%;
-  border-radius:16px;
-  margin-bottom:10px
+.plus{
+  font-size:72px;color:var(--primary);
+  display:flex;justify-content:center;align-items:center;
+  height:100%;cursor:pointer
 }
+.preview img{width:100%;border-radius:16px}
 
 /* FORM */
-form input, form textarea{
-  width:100%;
-  margin-bottom:12px;
-  padding:12px;
-  border-radius:12px;
-  border:1px solid #ddd
+input,textarea{
+  width:100%;margin-bottom:10px;
+  padding:12px;border-radius:12px;border:1px solid #ddd
 }
-
 textarea{resize:none;height:70px}
 
-/* ADD */
-.plus{
-  font-size:72px;
-  color:var(--primary);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:100%;
-  cursor:pointer
+/* PRODUCTS PAGE */
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px
 }
-
-/* JSON */
-#json{
-  width:100%;
-  height:120px;
-  border-radius:12px;
-  padding:12px;
-  font-family:monospace;
+.product{
+  background:white;padding:20px;border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,.1)
 }
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(40px)}
-  to{opacity:1}
-}
-@keyframes fadeIn{
-  from{opacity:0}
-  to{opacity:1}
-}
+.product img{width:100%;border-radius:12px}
 </style>
 </head>
 
@@ -171,95 +101,103 @@ textarea{resize:none;height:70px}
 
 <!-- LOGIN -->
 <div id="login">
-  <h2>🔐 دخول لوحة التحكم</h2>
   <p>أدخل كلمة المرور يا صاحب المتجر</p>
-  <input id="code" type="password" placeholder="كلمة المرور" />
+  <input id="code" type="password" placeholder="كلمة المرور">
   <br>
   <button onclick="login()">دخول</button>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" class="hidden">
-
   <div class="top">
-    <h2>لوحة إدارة المنتجات</h2>
-    <div class="menu">المنتجات المعروضة في المتجر</div>
+    <h2>لوحة التحكم</h2>
+    <div class="menu" onclick="openProducts()">المنتجات المعروضة في المتجر</div>
   </div>
 
   <div class="cards">
-
-    <!-- CARD 1 -->
     <div class="card">
       <div class="number">1</div>
-      <div class="preview" id="lastProduct">
-        آخر منتج سيظهر هنا
-      </div>
+      <div class="preview" id="last">آخر منتج سيظهر هنا</div>
     </div>
 
-    <!-- CARD 2 -->
     <div class="card">
       <div class="number">2</div>
-      <form onsubmit="saveProduct(event)">
-        <input id="name" placeholder="اسم المنتج" required>
+      <form onsubmit="save(event)">
+        <input id="name" placeholder="اسم المنتج">
         <textarea id="desc" placeholder="وصف المنتج"></textarea>
-        <input type="file" id="image" accept="image/*">
-        <button>إنشاء JSON</button>
+        <input id="img" type="file" accept="image/*">
+        <button>إضافة</button>
       </form>
-      <textarea id="json" placeholder="JSON سيظهر هنا"></textarea>
     </div>
 
-    <!-- CARD 3 -->
     <div class="card">
       <div class="number">3</div>
-      <div class="plus" onclick="resetForm()">+</div>
+      <div class="plus" onclick="showForm()">+</div>
     </div>
-
   </div>
 </div>
 
+<!-- PRODUCTS PAGE -->
+<div id="productsPage" class="hidden">
+  <div class="top">
+    <h2>المنتجات المعروضة</h2>
+    <div class="menu" onclick="back()">رجوع</div>
+  </div>
+  <div class="products" id="products"></div>
+  <p id="empty">لم يتم إضافة أي منتج بعد</p>
+</div>
+
 <script>
+let products=[];
+
 function login(){
-  if(document.getElementById('code').value === '0000'){
-    loginBox = document.getElementById('login');
-    dash = document.getElementById('dashboard');
-    loginBox.classList.add('hidden');
-    dash.classList.remove('hidden');
+  if(code.value==='0000'){
+    login.classList.add('hidden');
+    dashboard.classList.remove('hidden');
   }
 }
 
-function saveProduct(e){
+function save(e){
   e.preventDefault();
-
-  const name = document.getElementById('name').value;
-  const desc = document.getElementById('desc').value;
-  const file = document.getElementById('image').files[0];
-
-  if(!file){
-    alert('ارفع الصورة');
-    return;
+  const f=img.files[0];
+  if(!f)return alert('ارفع صورة');
+  const r=new FileReader();
+  r.onload=()=>{
+    const p={name:name.value,desc:desc.value,img:r.result};
+    products.push(p);
+    last.innerHTML=`<img src="${p.img}"><b>${p.name}</b><br>${p.desc}`;
+    name.value=desc.value=img.value='';
   }
-
-  const reader = new FileReader();
-  reader.onload = function(){
-    const product = {
-      name: name,
-      description: desc,
-      image: reader.result
-    };
-
-    document.getElementById('json').value =
-      JSON.stringify(product, null, 2) + ",";
-
-    document.getElementById('lastProduct').innerHTML =
-      `<img src="${reader.result}">
-       <strong>${name}</strong><br>${desc}`;
-  }
-  reader.readAsDataURL(file);
+  r.readAsDataURL(f);
 }
 
-function resetForm(){
-  document.querySelector('form').reset();
-  document.getElementById('json').value = '';
+function showForm(){
+  document.querySelector('form').scrollIntoView({behavior:'smooth'});
+}
+
+function openProducts(){
+  dashboard.classList.add('hidden');
+  productsPage.classList.remove('hidden');
+  render();
+}
+
+function back(){
+  productsPage.classList.add('hidden');
+  dashboard.classList.remove('hidden');
+}
+
+function render(){
+  productsDiv=document.getElementById('products');
+  productsDiv.innerHTML='';
+  empty.style.display=products.length?'none':'block';
+  products.forEach(p=>{
+    productsDiv.innerHTML+=`
+      <div class="product">
+        <img src="${p.img}">
+        <h4>${p.name}</h4>
+        <p>${p.desc}</p>
+      </div>`;
+  })
 }
 </script>
 
